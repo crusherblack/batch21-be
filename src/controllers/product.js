@@ -9,7 +9,14 @@ exports.getProducts = async (req, res) => {
         through: {
           model: CategoryProduct,
           as: "jembatan",
+          attributes: [],
         },
+        attributes: {
+          exclude: ["updatedAt", "createdAt"],
+        },
+      },
+      attributes: {
+        exclude: ["updatedAt", "createdAt", "jembatan"],
       },
     });
 
@@ -38,6 +45,7 @@ exports.getCategories = async (req, res) => {
         through: {
           model: CategoryProduct,
           as: "jembatan",
+          attributes: [],
         },
       },
     });
