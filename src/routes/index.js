@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const { authenticated } = require("../middlewares/auth"); //import middlware auth
 const { checkRolePartner } = require("../middlewares/checkRole");
+const { uploadFile } = require("../middlewares/upload");
 
 const {
   getTodos,
@@ -28,11 +29,11 @@ const { registerUser, login } = require("../controllers/auth");
 
 router.get("/todos", getTodos);
 router.get("/todo/:id", detailTodo);
-router.post("/todo", addTodo);
+router.post("/todo", uploadFile("imageFile", "videoFile"), addTodo);
 router.patch("/todo/:id", updateTodo);
 router.delete("/todo/:id", deleteTodo);
 
-router.get("/users", checkRolePartner, getUsers);
+router.get("/users", authenticated, checkRolePartner, getUsers);
 router.get("/profiles", getProfiles);
 router.get("/skills", getSkills);
 router.get("/user/:id", getDetailUser);
@@ -43,7 +44,7 @@ router.delete("/user/:id", deleteUser);
 router.get("/products", getProducts);
 router.get("/categories", getCategories);
 
-router.post("/register", registerUser);
+router.post("/register", uploadFile("imageFile", "videoFile"), registerUser);
 router.post("/login", login);
 
 module.exports = router;

@@ -47,6 +47,7 @@ exports.detailTodo = (req, res) => {
 
 exports.addTodo = (req, res) => {
   const { body } = req;
+  console.log("ini files", req.files);
 
   todos = [...todos, body];
 

@@ -40,6 +40,8 @@ exports.registerUser = async (req, res) => {
 
     const user = await User.create({
       ...req.body,
+      image: req.files.imageFile[0].filename,
+      video: req.files.videoFile[0].filename,
       password: hashedPassword,
     });
 
@@ -51,6 +53,8 @@ exports.registerUser = async (req, res) => {
       secretKey
     );
 
+    const url = "http://localhost:5000/uploads/";
+
     res.send({
       status: "success",
       message: "User Succesfully Registered",
@@ -60,6 +64,8 @@ exports.registerUser = async (req, res) => {
           email: user.email,
           token,
           role: user.role,
+          image: url + user.image,
+          video: url + user.video,
         },
       },
     });
